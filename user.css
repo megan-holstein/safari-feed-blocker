@@ -1,5 +1,22 @@
-/* Safari user style sheet. One file, one section per site; Safari loads it
-   from Settings > Advanced > Style sheet. README.md beside it says how each
+/* ==UserStyle==
+@name           Feed Blocker
+@description    Hides the feeds on Reddit, Facebook and Medium, the pictures on Instagram, and every social-media result on Google.
+@match          *://*.reddit.com/*
+@match          *://*.facebook.com/*
+@match          *://*.instagram.com/*
+@match          *://*.medium.com/*
+@match          *://*.google.com/*
+==/UserStyle== */
+
+/* The block above is what the Userscripts extension reads on iPhone, and it
+   is a CSS comment, so Safari on the Mac passes over it. The parser is
+   literal about that first line and that last line and refuses a file naming
+   no @name, so leave both as they are. `*://*.facebook.com/*` covers
+   m.facebook.com, which is where a phone lands.
+
+   Safari user style sheet. One file, one section per site; Safari on the Mac
+   loads it from Settings > Advanced > Style sheet, and Safari on iPhone runs
+   the same file through Userscripts. README.md beside it says how each
    section was verified and what to check when a site changes its markup. */
 
 /* ---- reddit.com: no feed, pinned posts only ---------------------------- */
@@ -162,7 +179,9 @@ div:has(> div > div > div > article[data-testid="post-preview"] a[href*="_recirc
 /* A profile page. The picture goes with the header section that holds it,
    the story highlights go with theirs, and the grid goes as the block after
    the Posts / Reels / Tagged tabs — the tab panel too, since a later build
-   may put the grid inside it rather than beside it. That covers the Posts,
+   may put the grid inside it rather than beside it. The grid is named twice,
+   as the next sibling of the tab list's wrapper and as a later one, because
+   on the phone an <hr> sits between the two. That covers the Posts,
    Reels and Tagged tabs alike, and the "Show more posts" button under them,
    so the page fetches no further row. The "Accounts you might like" carousel
    goes by the See all link that opens the same list in full. What stays is
@@ -173,6 +192,7 @@ html:has(meta[property="al:ios:url"][content^="instagram://user"]) header sectio
 html:has(meta[property="al:ios:url"][content^="instagram://user"]) header section:has(> div[role="menu"]),
 html:has(meta[property="al:ios:url"][content^="instagram://user"]) div[role="tabpanel"],
 html:has(meta[property="al:ios:url"][content^="instagram://user"]) div:has(> div[role="tablist"]) + div,
+html:has(meta[property="al:ios:url"][content^="instagram://user"]) div:has(> div[role="tablist"]) ~ div,
 html:has(meta[property="al:ios:url"][content^="instagram://user"]) div:has(> div > div > a[href*="/related_profiles/"]) {
   display: none !important;
 }
@@ -191,8 +211,11 @@ html:has(meta[property="al:android:package"][content="com.instagram.android"]) i
    variants — and the main column is emptied whole, the way the Facebook rule
    above empties a reel: picture, video, carousel, player, the caption with
    them, and the "More posts from" grid underneath. A link somebody sent
-   opens an empty page. */
-html:has(meta[property="al:ios:url"][content^="instagram://media"]) [role="main"] {
+   opens an empty page. The phone draws no [role="main"] on a post and puts
+   the media and the caption in a single <article> instead, so the rule names
+   both containers; the metadata guard holds it to a post or a reel, and such
+   a page carries one <article>. */
+html:has(meta[property="al:ios:url"][content^="instagram://media"]) :is([role="main"], article) {
   display: none !important;
 }
 

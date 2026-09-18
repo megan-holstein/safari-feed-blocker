@@ -1,22 +1,24 @@
 # safari-feed-blocker
 
 One CSS file that hides the feeds on Reddit, Facebook and Medium, the pictures
-on Instagram, and every social-media result on Google, in Safari on the Mac,
-using nothing but Safari's own style-sheet setting. No extension, no account,
-nothing installed, nothing that phones home. Everything you go to a site *for*
-still works: the post you open, its comments, your inbox, your groups, your own
-profile, search. What disappears is the endless column that keeps you there
-after you have done what you came to do.
+on Instagram, and every social-media result on Google, in Safari on the Mac and
+in Safari on iPhone. On the Mac it needs nothing but Safari's own style-sheet
+setting: no extension, no account, nothing installed, nothing that phones home.
+On the phone the same file, unchanged, runs through Userscripts, a free and
+open-source Safari extension. Everything you go to a site *for* still works:
+the post you open, its comments, your inbox, your groups, your own profile,
+search. What disappears is the endless column that keeps you there after you
+have done what you came to do.
 
 Instagram is the one deliberate exception. The section for it assumes you have
 no account and open Instagram only from a link somebody sent you, so it keeps
 what a profile says in words and takes away every picture, and a post or a reel
 opens empty.
 
-It also turns Medium dark when your Mac is dark, since Medium has no dark
-theme of its own.
+It also turns Medium dark when your Mac or your phone is dark, since Medium has
+no dark theme of its own.
 
-## Install
+## Install on the Mac
 
 1. Download `user.css` from this repo (or clone the repo) and keep the file
    somewhere it will stay, such as `~/Documents/user.css`. Safari reads it from
@@ -36,10 +38,37 @@ defaults write com.apple.Safari UserStyleSheetLocationURLString "file://$HOME/Do
 
 then quit and reopen Safari.
 
+## Install on iPhone
+
+Safari on iPhone has no style-sheet setting, so the same file runs through
+[**Userscripts**](https://apps.apple.com/us/app/userscripts/id1463298887), a
+free, open-source extension that appends a style sheet to the sites you name.
+The `==UserStyle==` header at the top of `user.css` is what it reads; Safari on
+the Mac passes over the header, because it is an ordinary CSS comment. One file
+serves both machines.
+
+1. Install **Userscripts** from the App Store.
+2. Open **Settings > Apps > Safari > Extensions**, tap **Userscripts**, and turn
+   on **Allow Extension**. Then set its permission for **All Websites** to
+   **Allow**, so it runs on the five sites without asking each time.
+3. Open the Userscripts app once and point it at a folder. Choose one in iCloud
+   Drive, so that you can drop the file in from your Mac and every later edit
+   reaches the phone on its own.
+4. Put `user.css` in that folder, exactly as it is. Reload the page.
+
+To confirm it is running, open one of the five sites, tap the button on the left
+of the address field, and choose **Userscripts**: the extension lists what it is
+running on the page, and **Feed Blocker** is in the list.
+
+One thing the sheet cannot reach: a link to Reddit or Facebook opens that site's
+own app when you have the app installed, and the sheet governs Safari only. Open
+such a link with **Open in Safari**, or keep the app off the phone.
+
 ## Switch it off, or drop a site
 
 - **Everything off:** set **Style sheet** back to **None** in the same pane.
-  Nothing else changes; the file just stops being read.
+  Nothing else changes; the file just stops being read. On the phone, turn
+  **Allow Extension** off under Settings > Apps > Safari > Extensions.
 - **One site only:** open `user.css` in any text editor and delete that site's
   section. Each section begins with a comment line naming the site. Safari
   picks the edit up on the next reload.
@@ -99,15 +128,45 @@ list), and the "More from" and "Recommended from Medium" blocks under a story.
 What stays: the story itself and its responses, your profile and its stories,
 your drafts and published lists, stats and notifications.
 
-**Dark mode on Medium** follows the Mac's appearance (System Settings >
-Appearance, or the Display tile in Control Center; Auto turns it on at
-sunset). The page is inverted and pictures are inverted back. If you do not
-want it, delete the block that begins `@media (prefers-color-scheme: dark)`.
+**Dark mode on Medium** follows the appearance of whatever you are reading on —
+on the Mac, System Settings > Appearance, or the Display tile in Control Center,
+where Auto turns it on at sunset; on the phone, Settings > Display & Brightness.
+The page is inverted and pictures are inverted back. If you do not want it,
+delete the block that begins `@media (prefers-color-scheme: dark)`.
+
+**On the phone.** Reddit and Medium carry over as they stand. Reddit serves a
+phone the same app it serves a Mac, on the same host, with the same custom
+elements and the same route names, so every Reddit rule fires there unchanged.
+Medium's feed cards carry the same `source=` tags on the phone and go to the
+card rule, and the column beside the feed has no phone equivalent to hide, since
+the phone lays the page out in one column. Instagram took two edits, both of
+them in this file: a post carries no `[role="main"]` on a phone, so the rule
+names the `<article>` the phone draws instead as well; and on a profile an
+`<hr>` sits between the tabs and the grid, so the rule reaches the grid as a
+later sibling as well as the next one. Facebook and Google are the two nobody
+has checked on a phone — see Limits.
 
 ## Limits
 
-- Safari on the Mac only. Safari on iPhone and iPad has no user style sheet,
-  and the phone apps are out of reach altogether.
+- **The Mac needs no extension; the phone needs Userscripts.** Safari on iPhone
+  and iPad has no style-sheet setting of its own, which is what the header at
+  the top of `user.css` is for. The phone apps are out of reach on either
+  machine.
+- **Facebook and Google are unverified on the phone.** Signed out, a phone is
+  served a login form on m.facebook.com and never reaches the news feed, so the
+  Facebook rules could only be checked signed in, and they were not. Google
+  answered every automated request from the network this was tested on with a
+  CAPTCHA, so whether a phone's results still carry `#rso`, `[data-rpos]` and
+  `#m-x-content` is an open question. Neither section was guessed at: both stand
+  exactly as the Mac verified them. If one of them misses on your phone, that is
+  why, and an issue saying what you see is welcome.
+- **The Mac and the phone load the file at different origins.** Safari's own
+  setting loads it at *user* origin, where `!important` outranks the page's own
+  `!important`. Userscripts appends it as an ordinary author style sheet, where
+  a page's rule can win. Every rule here already declares
+  `display: none !important`, which is enough against these five sites as they
+  stand — but a rule that works on the Mac and fails on the phone, with no
+  change to the site's markup, is the signature of that difference.
 - The sheet applies to every page you visit, so each rule is written to match
   things only its own site has. If some other site ever loses an element, the
   culprit is one of these rules, and deleting the section fixes it.
