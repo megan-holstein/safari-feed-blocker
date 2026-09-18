@@ -27,6 +27,16 @@ aside:has(> recent-posts) {
   display: none !important;
 }
 
+/* A search: the post results, the "People also search for" suggestions, the
+   rules between them and the loader that fetches the next page. The tabs
+   stay, and so does the Communities and Profiles column beside the results,
+   which is what a search is for once the posts are gone. */
+shreddit-app[routename*="serp"] main search-telemetry-tracker:has(> [data-testid="search-post-unit"], > [data-testid="search-post-with-content-preview"], [data-testid="search-sdui-query-suggestion-wrapper"]),
+shreddit-app[routename*="serp"] main div:has(> span:only-child):has(+ search-telemetry-tracker),
+shreddit-app[routename*="serp"] main > div > :is(hr, faceplate-partial) {
+  display: none !important;
+}
+
 /* ---- google.com: no social media in the results --------------------------
    Every web result sits in a block under the results list (#rso) that
    carries a position attribute, and the AI Overview sits in #m-x-content

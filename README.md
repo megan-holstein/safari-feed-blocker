@@ -46,7 +46,10 @@ then quit and reopen Safari.
 **reddit.com.** The feed on the home page, r/popular and r/all. On a
 community page, every post the moderators have not pinned, together with the
 ads and the loaders between them, so the page never fetches a second page.
-The Recent Posts column beside the home feed. What stays: the community's
+The Recent Posts column beside the home feed. On a search, the post results
+and the "People also search for" suggestions, leaving the tabs and the
+Communities and Profiles column, which is what a search is for once the
+posts are gone. What stays elsewhere: the community's
 highlights row and pinned posts, any post you open and its comments, your
 profile, your inbox and search.
 
