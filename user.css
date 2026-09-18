@@ -70,7 +70,20 @@ aside:has(> recent-posts) {
 /* The whole feed block, heading included. */
 [role="main"]:has([data-focus-target="stories_tray"]) div:has(> h3 + div[aria-hidden="true"] + div),
 /* And each post on its own, should the block's shape change first. */
-[role="main"]:has([data-focus-target="stories_tray"]) div[aria-posinset] {
+[role="main"]:has([data-focus-target="stories_tray"]) div[aria-posinset],
+/* The Stories tray itself. The feed rules above still key on it, since
+   :has() sees an element whether or not it is displayed. */
+[role="main"] [data-focus-target="stories_tray"] {
+  display: none !important;
+}
+
+/* The Friends page's Home view: the friend requests and the "People you may
+   know" suggestions, with the rule between them. What is left is the rail on
+   the left, where All friends is one click away; that list is a different
+   view and is untouched. */
+[role="main"][aria-label="Friends"] > div > div > div:has(a[aria-label="See all friend requests"]),
+[role="main"][aria-label="Friends"] > div > div > div:has(a[aria-label="See all suggestions"]),
+[role="main"][aria-label="Friends"] > div > div > hr {
   display: none !important;
 }
 

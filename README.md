@@ -50,10 +50,12 @@ The Recent Posts column beside the home feed. What stays: the community's
 highlights row and pinned posts, any post you open and its comments, your
 profile, your inbox and search.
 
-**facebook.com.** The news feed on the home page. What stays: the composer
-and the Stories tray above it, the menu on the left, the column on the right,
-and every other page. Groups and profiles keep their posts, because the rule
-applies only to the page that carries the Stories tray.
+**facebook.com.** The news feed and the Stories tray on the home page, and
+on the Friends page the Home view's friend requests and "People you may know"
+suggestions, so that the page opens empty and All friends is one click away in
+the rail. What stays: the composer, the menu on the left, the column on the
+right, and every other page. Groups and profiles keep their posts, because the
+feed rule applies only to the page that carries the Stories tray.
 
 **google.com.** Any web result that links to a social-media site, along
 with its site-links and the "More results from" line under it, and the AI
