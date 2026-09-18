@@ -27,13 +27,35 @@ aside:has(> recent-posts) {
   display: none !important;
 }
 
-/* ---- google.com: no Reddit in the results --------------------------------
+/* ---- google.com: no social media in the results --------------------------
    Every web result sits in a block under the results list (#rso) that
-   carries a position attribute; a block whose links go to Reddit is hidden
-   whole, its site-links and "More results from reddit.com" line included.
-   The AI Overview stays even when it cites Reddit, since hiding it would take
-   the whole overview. Google's class names rotate; these attributes do not. */
-#rso [data-rpos]:has(a[href*="reddit.com/"]) {
+   carries a position attribute, and the AI Overview sits in #m-x-content
+   above it. Either is hidden whole when any link in it goes to one of the
+   sites below: a result block takes its site-links and "More results from"
+   line with it, and an overview that cites a social site goes rather than
+   stand on it. Google's class names rotate; these ids and attributes do not.
+   The list is the thing to edit: one line per site, and the trailing comma
+   matters. `x.com` is matched on the "://" so that box.com and netflix.com
+   are not caught by a substring. YouTube is left out on purpose, since most
+   of what it answers on Google is a how-to; add a line if you disagree. */
+:is(#m-x-content, #rso [data-rpos]):has(
+  a[href*="reddit.com/"],
+  a[href*="facebook.com/"],
+  a[href*="instagram.com/"],
+  a[href*="threads.com/"],
+  a[href*="threads.net/"],
+  a[href*="twitter.com/"],
+  a[href*="://x.com/"],
+  a[href*="://www.x.com/"],
+  a[href*="://mobile.x.com/"],
+  a[href*="tiktok.com/"],
+  a[href*="snapchat.com/"],
+  a[href*="pinterest."],
+  a[href*="linkedin.com/"],
+  a[href*="tumblr.com/"],
+  a[href*="bsky.app/"],
+  a[href*="quora.com/"]
+) {
   display: none !important;
 }
 

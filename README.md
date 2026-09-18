@@ -1,7 +1,7 @@
 # safari-feed-blocker
 
-One CSS file that hides the feeds on Reddit, Facebook and Medium, and Reddit
-results on Google, in Safari on the Mac, using nothing but Safari's own style-sheet setting. No extension, no
+One CSS file that hides the feeds on Reddit, Facebook and Medium, and every
+social-media result on Google, in Safari on the Mac, using nothing but Safari's own style-sheet setting. No extension, no
 account, nothing installed, nothing that phones home. Everything you go to a
 site *for* still works: the post you open, its comments, your inbox, your
 groups, your own profile, search. What disappears is the endless column that
@@ -55,13 +55,17 @@ and the Stories tray above it, the menu on the left, the column on the right,
 and every other page. Groups and profiles keep their posts, because the rule
 applies only to the page that carries the Stories tray.
 
-**google.com.** Any web result that links to Reddit, along with its
-site-links and the "More results from reddit.com" line under it. The AI
-Overview stays, even when it cites Reddit, since hiding it would take the
-whole overview with it. Searching Reddit on purpose still works: results on
-reddit.com itself are untouched, and so is Google's own `site:reddit.com`
-search, which hides every result and shows an empty page, so run that one
-with the sheet off.
+**google.com.** Any web result that links to a social-media site, along
+with its site-links and the "More results from" line under it, and the AI
+Overview whenever it cites one, since an answer built on those sources is not
+one worth reading. The sites: Reddit, Facebook, Instagram, Threads, X and
+Twitter, TikTok, Snapchat, Pinterest, LinkedIn, Tumblr, Bluesky and Quora.
+YouTube is left out, because most of what it answers on Google is a how-to.
+The list sits at the top of the Google section as one line per site, so
+adding or striking one is a one-line edit. Two things follow from hiding a
+block whole: a "People also ask" or "Discussions and forums" box goes if any
+answer in it comes from one of those sites, and a `site:reddit.com` search
+shows an empty page, so run that one with the sheet off.
 
 **medium.com.** The home feed under the For you and Featured tabs and the
 column beside it (Staff Picks, Recommended topics, Who to follow, Reading
