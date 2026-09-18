@@ -1,0 +1,86 @@
+/* Safari user style sheet. One file, one section per site; Safari loads it
+   from Settings > Advanced > Style sheet. README.md beside it says how each
+   section was verified and what to check when a site changes its markup. */
+
+/* ---- reddit.com: no feed, pinned posts only ---------------------------- */
+
+/* The home page, r/popular and r/all: no feed at all. */
+shreddit-app[routename="frontpage"] shreddit-feed,
+shreddit-app[routename="popular"] shreddit-feed,
+shreddit-app[routename="all"] shreddit-feed {
+  display: none !important;
+}
+
+/* A community page: every post that is not pinned, wherever the feed nests
+   it, plus the ads, rules and loaders around them. With the loaders hidden the
+   page stops fetching further posts. */
+shreddit-app[routename="subreddit"] shreddit-feed article:not(:has(shreddit-post[stickied])),
+shreddit-app[routename="subreddit"] shreddit-feed > :is(hr, shreddit-ad-post, faceplate-loader, faceplate-partial, shreddit-feed-load-more-observer),
+shreddit-app[routename="subreddit"] shreddit-feed > faceplate-batch > :is(hr, shreddit-ad-post, faceplate-loader, faceplate-partial, shreddit-feed-load-more-observer) {
+  display: none !important;
+}
+
+/* The Recent Posts column beside the feed, which lists what you opened last.
+   Reddit renders it only when you are signed in. */
+recent-posts,
+aside:has(> recent-posts) {
+  display: none !important;
+}
+
+/* ---- facebook.com: no news feed ----------------------------------------
+   Facebook randomises its class names and this build carries no role="feed",
+   so the rules key on what the page says about itself. The home page is the
+   one whose main column carries the Stories tray, and the feed is the block
+   under it that opens with a heading followed by a hidden spacer: "Feed
+   posts". The composer and the tray above it stay, so do the columns either
+   side; group and profile pages have no tray and are untouched. */
+
+/* The whole feed block, heading included. */
+[role="main"]:has([data-focus-target="stories_tray"]) div:has(> h3 + div[aria-hidden="true"] + div),
+/* And each post on its own, should the block's shape change first. */
+[role="main"]:has([data-focus-target="stories_tray"]) div[aria-posinset] {
+  display: none !important;
+}
+
+/* ---- medium.com: no feed, and dark when the Mac is dark ------------------
+   Feed cards carry a `source=` tag in every link that names the surface they
+   were served on, which is what these rules key on; the drafts list, stats,
+   notifications and a profile's own stories carry other tags and stay. */
+
+/* The home page: the feed under the For you / Featured tabs, and the column
+   beside it (Staff Picks, Recommended topics, Who to follow, Reading list). */
+main:has(a[role="tab"][href*="medium.com/?"]) > div > div:has(> div > div > div > article[data-testid="post-preview"]),
+main:has(a[role="tab"][href*="medium.com/?"]) + div {
+  display: none !important;
+}
+
+/* Cards served by a feed, wherever they appear: the home feeds, a topic page,
+   and the "More from" and "Recommended from Medium" blocks under a story. */
+[data-testid="post-preview"]:has(a[href*="source=home_"]),
+[data-testid="post-preview"]:has(a[href*="source=topic_"]),
+[data-testid="post-preview"]:has(a[href*="_recirc-"]),
+[data-testid="post-preview"]:has(a[href*="_recirc--"]) {
+  display: none !important;
+}
+
+/* The whole recommendation block under a story, headings included. */
+div:has(> div > div > div > article[data-testid="post-preview"] a[href*="_recirc"]) {
+  display: none !important;
+}
+
+/* Dark mode, following the Mac's appearance. Medium has no dark theme of its
+   own and randomises its class names, so this inverts the page and then
+   inverts pictures back. The meta tag is on every Medium page and on nothing
+   else, which keeps the filter off every other site. */
+@media (prefers-color-scheme: dark) {
+  html:has(meta[property="al:android:package"][content="com.medium.reader"]) {
+    filter: invert(1) hue-rotate(180deg);
+    background: #fff !important;
+  }
+  html:has(meta[property="al:android:package"][content="com.medium.reader"]) body {
+    background: #fff !important;
+  }
+  html:has(meta[property="al:android:package"][content="com.medium.reader"]) :is(img, video, picture, canvas, iframe, [style*="background-image"]) {
+    filter: invert(1) hue-rotate(180deg);
+  }
+}
