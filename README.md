@@ -1,7 +1,7 @@
 # safari-feed-blocker
 
-One CSS file that hides the feeds on Reddit, Facebook and Medium in Safari on
-the Mac, using nothing but Safari's own style-sheet setting. No extension, no
+One CSS file that hides the feeds on Reddit, Facebook and Medium, and Reddit
+results on Google, in Safari on the Mac, using nothing but Safari's own style-sheet setting. No extension, no
 account, nothing installed, nothing that phones home. Everything you go to a
 site *for* still works: the post you open, its comments, your inbox, your
 groups, your own profile, search. What disappears is the endless column that
@@ -18,8 +18,8 @@ theme of its own.
 2. In Safari, open **Settings** (⌘,), then the **Advanced** tab.
 3. Beside **Style sheet**, choose **Other…** and pick the file.
 
-That is the whole installation. Reload any open Reddit, Facebook or Medium
-tab and the feed is gone.
+That is the whole installation. Reload any open Reddit, Facebook, Medium or
+Google tab and the feed is gone.
 
 If you would rather do it from Terminal:
 
@@ -54,6 +54,14 @@ profile, your inbox and search.
 and the Stories tray above it, the menu on the left, the column on the right,
 and every other page. Groups and profiles keep their posts, because the rule
 applies only to the page that carries the Stories tray.
+
+**google.com.** Any web result that links to Reddit, along with its
+site-links and the "More results from reddit.com" line under it. The AI
+Overview stays, even when it cites Reddit, since hiding it would take the
+whole overview with it. Searching Reddit on purpose still works: results on
+reddit.com itself are untouched, and so is Google's own `site:reddit.com`
+search, which hides every result and shows an empty page, so run that one
+with the sheet off.
 
 **medium.com.** The home feed under the For you and Featured tabs and the
 column beside it (Staff Picks, Recommended topics, Who to follow, Reading

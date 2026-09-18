@@ -27,6 +27,16 @@ aside:has(> recent-posts) {
   display: none !important;
 }
 
+/* ---- google.com: no Reddit in the results --------------------------------
+   Every web result sits in a block under the results list (#rso) that
+   carries a position attribute; a block whose links go to Reddit is hidden
+   whole, its site-links and "More results from reddit.com" line included.
+   The AI Overview stays even when it cites Reddit, since hiding it would take
+   the whole overview. Google's class names rotate; these attributes do not. */
+#rso [data-rpos]:has(a[href*="reddit.com/"]) {
+  display: none !important;
+}
+
 /* ---- facebook.com: no news feed ----------------------------------------
    Facebook randomises its class names and this build carries no role="feed",
    so the rules key on what the page says about itself. The home page is the
