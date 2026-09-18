@@ -54,11 +54,24 @@ serves both machines.
 3. Open the Userscripts app once and point it at a folder. Choose one in iCloud
    Drive, so that you can drop the file in from your Mac and every later edit
    reaches the phone on its own.
-4. Put `user.css` in that folder, exactly as it is. Reload the page.
+4. Put `user.css` in that folder, exactly as it is.
+5. Open the Userscripts app again, or the extension's popup in Safari, and wait
+   for **Feed Blocker** to appear in its list. This step is not optional: the
+   extension keeps its own table of which file runs on which site, and it
+   rebuilds that table only when the app or the popup loads the list, never
+   when a file lands in the folder. A file the list has not shown yet injects
+   nothing. Then reload the page.
 
 To confirm it is running, open one of the five sites, tap the button on the left
 of the address field, and choose **Userscripts**: the extension lists what it is
 running on the page, and **Feed Blocker** is in the list.
+
+Two things about the folder afterwards. An edit to the file reaches the phone on
+the next reload with no further step, since the extension reads the file itself
+each time; only a new file, or a change to its `@match` lines, needs the list
+opened again. And iCloud may evict the file from the phone to save space, after
+which the extension has nothing to read: in the Files app, hold the folder and
+choose **Keep Downloaded**.
 
 One thing the sheet cannot reach: a link to Reddit or Facebook opens that site's
 own app when you have the app installed, and the sheet governs Safari only. Open
