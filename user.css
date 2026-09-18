@@ -77,6 +77,15 @@ aside:has(> recent-posts) {
   display: none !important;
 }
 
+/* Reels. A reel is a page of its own, and the Reels section carries a rail
+   (Reels, For you, Following, Profile) that no other page has, so the page
+   is known by the rail's Following link and its main column is emptied:
+   player, sound, captions, the next and previous arrows, all of it. That
+   covers the Reels tab and any reel opened from a shared link. */
+html:has(a[href*="/reel/following/"]) [role="main"] {
+  display: none !important;
+}
+
 /* The Friends page's Home view: the friend requests and the "People you may
    know" suggestions, with the rule between them. What is left is the rail on
    the left, where All friends is one click away; that list is a different
