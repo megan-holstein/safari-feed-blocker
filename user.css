@@ -148,3 +148,57 @@ div:has(> div > div > div > article[data-testid="post-preview"] a[href*="_recirc
     filter: invert(1) hue-rotate(180deg);
   }
 }
+
+/* ---- instagram.com: no pictures, and a post opens empty -----------------
+   Written for a reader with no account, who opens Instagram only from a link
+   somebody sent: a profile keeps what it says in words and loses every
+   picture. Instagram randomises its class names, so each rule names the page
+   by the head metadata and finds the block by role or alt text. `al:ios:url`
+   carries the account on a profile and a media id on a post or a reel, and
+   `og:url` is where Explore and a topic page both point, since `/explore/`
+   now canonicalises to `/popular/`. None of the three is translated, so they
+   hold in any language. */
+
+/* A profile page. The picture goes with the header section that holds it,
+   the story highlights go with theirs, and the grid goes as the block after
+   the Posts / Reels / Tagged tabs — the tab panel too, since a later build
+   may put the grid inside it rather than beside it. That covers the Posts,
+   Reels and Tagged tabs alike, and the "Show more posts" button under them,
+   so the page fetches no further row. The "Accounts you might like" carousel
+   goes by the See all link that opens the same list in full. What stays is
+   every other section of the header: the username, the post, follower and
+   following counts, the display name, the category line, the bio and its
+   link. */
+html:has(meta[property="al:ios:url"][content^="instagram://user"]) header section:has(img[alt$="profile picture"]),
+html:has(meta[property="al:ios:url"][content^="instagram://user"]) header section:has(> div[role="menu"]),
+html:has(meta[property="al:ios:url"][content^="instagram://user"]) div[role="tabpanel"],
+html:has(meta[property="al:ios:url"][content^="instagram://user"]) div:has(> div[role="tablist"]) + div,
+html:has(meta[property="al:ios:url"][content^="instagram://user"]) div:has(> div > div > a[href*="/related_profiles/"]) {
+  display: none !important;
+}
+
+/* Every account picture, wherever Instagram draws one: the profile header,
+   the login dialog that opens over it, the line above a post, a suggestion
+   row. Instagram writes the account name into the alt text, so the ending is
+   what this matches. Facebook words its alt text the same way, which is why
+   the rule is held to Instagram by the package name in the head. */
+html:has(meta[property="al:android:package"][content="com.instagram.android"]) img[alt$="profile picture"] {
+  display: none !important;
+}
+
+/* A post or a reel. `al:ios:url` carries a media id on every form the link
+   takes — /p/, /reel/, /reels/ and the /<username>/p/ and /<username>/reel/
+   variants — and the main column is emptied whole, the way the Facebook rule
+   above empties a reel: picture, video, carousel, player, the caption with
+   them, and the "More posts from" grid underneath. A link somebody sent
+   opens an empty page. */
+html:has(meta[property="al:ios:url"][content^="instagram://media"]) [role="main"] {
+  display: none !important;
+}
+
+/* Explore and a topic page, which are one surface under two addresses and
+   are nothing but a grid signed out. Both declare `og:url` on /popular/, so
+   both are emptied. */
+html:has(meta[property="og:url"][content*="instagram.com/popular/"]) [role="main"] {
+  display: none !important;
+}

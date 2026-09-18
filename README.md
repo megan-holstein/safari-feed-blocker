@@ -1,11 +1,17 @@
 # safari-feed-blocker
 
-One CSS file that hides the feeds on Reddit, Facebook and Medium, and every
-social-media result on Google, in Safari on the Mac, using nothing but Safari's own style-sheet setting. No extension, no
-account, nothing installed, nothing that phones home. Everything you go to a
-site *for* still works: the post you open, its comments, your inbox, your
-groups, your own profile, search. What disappears is the endless column that
-keeps you there after you have done what you came to do.
+One CSS file that hides the feeds on Reddit, Facebook and Medium, the pictures
+on Instagram, and every social-media result on Google, in Safari on the Mac,
+using nothing but Safari's own style-sheet setting. No extension, no account,
+nothing installed, nothing that phones home. Everything you go to a site *for*
+still works: the post you open, its comments, your inbox, your groups, your own
+profile, search. What disappears is the endless column that keeps you there
+after you have done what you came to do.
+
+Instagram is the one deliberate exception. The section for it assumes you have
+no account and open Instagram only from a link somebody sent you, so it keeps
+what a profile says in words and takes away every picture, and a post or a reel
+opens empty.
 
 It also turns Medium dark when your Mac is dark, since Medium has no dark
 theme of its own.
@@ -18,8 +24,8 @@ theme of its own.
 2. In Safari, open **Settings** (⌘,), then the **Advanced** tab.
 3. Beside **Style sheet**, choose **Other…** and pick the file.
 
-That is the whole installation. Reload any open Reddit, Facebook, Medium or
-Google tab and the feed is gone.
+That is the whole installation. Reload any open Reddit, Facebook, Instagram,
+Medium or Google tab and the feed is gone.
 
 If you would rather do it from Terminal:
 
@@ -61,6 +67,20 @@ so that the page opens empty and All friends is one click away in the rail. What
 right, and every other page. Groups and profiles keep their posts, because the
 feed rule applies only to the page that carries the Stories tray.
 
+**instagram.com.** On a profile: the profile picture, the story highlights, the
+whole grid under the Posts, Reels and Tagged tabs, and the "Accounts you might
+like" carousel beneath it. What stays is everything the page says in words —
+the username, the follower and following counts, the display name, the category
+line, the bio and its link — and the tabs themselves. A post or a reel opens
+empty, whichever address the link carries (`/p/`, `/reel/`, `/reels/`, or the
+`/<username>/p/` and `/<username>/reel/` forms): the main column goes whole, so
+no picture, no video, no carousel, no player, and the caption goes with them.
+Explore and a topic page are one grid under two addresses and are emptied the
+same way. Two pages never reach the sheet at all, because Instagram never draws
+them for a signed-out visitor: a profile's Tagged tab redirects to the login
+page, and instagram.com itself is the login form. Signed in, the home feed is
+a page this section does not cover.
+
 **google.com.** Any web result that links to a social-media site, along
 with its site-links and the "More results from" line under it, and the AI
 Overview whenever it cites one, since an answer built on those sources is not
@@ -100,10 +120,11 @@ want it, delete the block that begins `@media (prefers-color-scheme: dark)`.
 If you want to repair a rule yourself: open the page, choose **Develop > Show
 Web Inspector** (turn the Develop menu on under Settings > Advanced first),
 and read what the feed's container is called now. Reddit uses named custom
-elements (`shreddit-feed`, `recent-posts`), which are easy. Facebook and
-Medium randomise their class names, so the rules there key on things that
-survive a rebuild: `role`, `aria-*` and `data-*` attributes, and the shape of
-the markup around a stable heading. One rule of CSS to remember while editing:
+elements (`shreddit-feed`, `recent-posts`), which are easy. Facebook,
+Instagram and Medium randomise their class names, so the rules there key on
+things that survive a rebuild: `role`, `aria-*` and `data-*` attributes, the
+alt text on a picture, the head's own `og:` and `al:` metadata, and the shape
+of the markup around a stable heading. One rule of CSS to remember while editing:
 `:has()` cannot be nested inside another `:has()`, and a selector that does
 so fails silently.
 
