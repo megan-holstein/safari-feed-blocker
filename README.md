@@ -1,4 +1,4 @@
-# safari-user-style
+# safari-feed-blocker
 
 One CSS file that hides the feeds on Reddit, Facebook and Medium in Safari on
 the Mac, using nothing but Safari's own style-sheet setting. No extension, no
