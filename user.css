@@ -181,7 +181,8 @@ div:has(> div > div > div > article[data-testid="post-preview"] a[href*="_recirc
    the Posts / Reels / Tagged tabs — the tab panel too, since a later build
    may put the grid inside it rather than beside it. The grid is named twice,
    as the next sibling of the tab list's wrapper and as a later one, because
-   on the phone an <hr> sits between the two. That covers the Posts,
+   on the phone an <hr> sits between the two, and the rule takes that line
+   with it. That covers the Posts,
    Reels and Tagged tabs alike, and the "Show more posts" button under them,
    so the page fetches no further row. The "Accounts you might like" carousel
    goes by the See all link that opens the same list in full. What stays is
@@ -192,7 +193,7 @@ html:has(meta[property="al:ios:url"][content^="instagram://user"]) header sectio
 html:has(meta[property="al:ios:url"][content^="instagram://user"]) header section:has(> div[role="menu"]),
 html:has(meta[property="al:ios:url"][content^="instagram://user"]) div[role="tabpanel"],
 html:has(meta[property="al:ios:url"][content^="instagram://user"]) div:has(> div[role="tablist"]) + div,
-html:has(meta[property="al:ios:url"][content^="instagram://user"]) div:has(> div[role="tablist"]) ~ div,
+html:has(meta[property="al:ios:url"][content^="instagram://user"]) div:has(> div[role="tablist"]) ~ :is(div, hr),
 html:has(meta[property="al:ios:url"][content^="instagram://user"]) div:has(> div > div > a[href*="/related_profiles/"]) {
   display: none !important;
 }
