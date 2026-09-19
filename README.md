@@ -51,10 +51,18 @@ serves both machines.
 2. Open **Settings > Apps > Safari > Extensions**, tap **Userscripts**, and turn
    on **Allow Extension**. Then set its permission for **All Websites** to
    **Allow**, so it runs on the five sites without asking each time.
-3. Open the Userscripts app once and point it at a folder. Choose one in iCloud
-   Drive, so that you can drop the file in from your Mac and every later edit
-   reaches the phone on its own.
-4. Put `user.css` in that folder, exactly as it is.
+3. Open the Userscripts app once and leave its save location at the default,
+   which is the app's own folder. The Files app shows that folder under **On My
+   iPhone > Userscripts**; the app writes a demo user script into it on first
+   launch, which is what makes it visible there, and you can delete that demo
+   once `user.css` is in.
+4. Put `user.css` in that folder, once, by whichever route reaches the phone
+   most easily. AirDrop it from your Mac. Or open
+   [the raw file](https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css)
+   in Safari and choose **Save to Files** from the share sheet. Or, if you keep
+   a copy in iCloud Drive, copy it across in the Files app — copy it into the
+   Userscripts folder, rather than pointing Userscripts at the iCloud folder,
+   for the reason two paragraphs down.
 5. Open the Userscripts app again, or the extension's popup in Safari, and wait
    for **Feed Blocker** to appear in its list. This step is not optional: the
    extension keeps its own table of which file runs on which site, and it
@@ -66,12 +74,42 @@ To confirm it is running, open one of the five sites, tap the button on the left
 of the address field, and choose **Userscripts**: the extension lists what it is
 running on the page, and **Feed Blocker** is in the list.
 
-Two things about the folder afterwards. An edit to the file reaches the phone on
-the next reload with no further step, since the extension reads the file itself
-each time; only a new file, or a change to its `@match` lines, needs the list
-opened again. And iCloud may evict the file from the phone to save space, after
-which the extension has nothing to read: in the Files app, hold the folder and
-choose **Keep Downloaded**.
+**Later versions come down from GitHub, so that first copy is the only one you
+move by hand.** `user.css` declares a `@version` and an `@updateURL` naming the
+raw file in this repo, which is all Userscripts requires to treat a file as
+updatable. Open the extension's popup, tap the cloud button along the top, and
+choose **Check Updates**: the extension fetches the update URL, reads the
+`@version` in the header it finds there, and lists **Feed Blocker** when that
+number is higher than the one on the phone — it compares the numbers one at a
+time, so 1.0.10 counts as newer than 1.0.9. **Update** beside the entry, or
+**Update All**, then rewrites the phone's copy from `@downloadURL`, which names
+the same raw file. Nothing to pull, nothing to copy again. Reload the page and
+the new rules are running, since the extension reads the file itself at every
+injection; only a change to the `@match` lines asks for the app or the popup to
+load the list again. An edit that does not raise `@version` never travels at
+all, which is why every commit here that touches `user.css` raises it.
+
+That check is a tap rather than a schedule, for the moment. Userscripts used to
+run it on its own whenever the popup opened; version 4.8.6 ships that code
+commented out over
+[issue #894](https://github.com/quoid/userscripts/issues/894), and on the
+development branch, where it has returned, it stays off until you choose an
+interval — 1, 3, 7, 15 or 30 days — in the extension's settings. The app's own
+editor offers a sync button per file as well, but it compares the two versions
+as text rather than number by number, so the popup is the one to trust.
+
+**Do not point Userscripts at a folder in iCloud Drive.** It is the obvious
+idea — drop the file in from the Mac and every later edit reaches the phone on
+its own — and today it fails. The extension reads its folder synchronously,
+while Apple serves iCloud Drive through FileProvider, which answers
+asynchronously, so the extension finds nothing to list: no **Feed Blocker**, an
+empty list, and no injection, even with every file downloaded and the folder
+set to **Keep Downloaded**. The maintainer describes the same cause and the
+same symptoms in [#424](https://github.com/quoid/userscripts/issues/424),
+[#728](https://github.com/quoid/userscripts/issues/728) and
+[#814](https://github.com/quoid/userscripts/issues/814), and the repair waits
+on a backend refactor that has not shipped. Until it does, leave the save
+location alone and let the update check above carry the changes.
 
 One thing the sheet cannot reach: a link to Reddit or Facebook opens that site's
 own app when you have the app installed, and the sheet governs Safari only. Open

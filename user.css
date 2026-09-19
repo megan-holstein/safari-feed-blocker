@@ -1,6 +1,9 @@
 /* ==UserStyle==
 @name           Feed Blocker
 @description    Hides the feeds on Reddit, Facebook and Medium, the pictures on Instagram, and every social-media result on Google.
+@version        1.0.0
+@updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
+@downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
 @match          *://*.facebook.com/*
 @match          *://*.instagram.com/*
@@ -13,6 +16,15 @@
    literal about that first line and that last line and refuses a file naming
    no @name, so leave both as they are. `*://*.facebook.com/*` covers
    m.facebook.com, which is where a phone lands.
+
+   @version, @updateURL and @downloadURL are what carry an edit to the phone.
+   Userscripts treats a file as updatable only when it declares both a version
+   and an update URL; asked to check, it fetches the update URL, reads the
+   @version there, and rewrites the phone's copy from the download URL when
+   that number is higher than the one the phone holds. So a change to this
+   file has to raise @version, or the phone keeps what it already has. The
+   clone's pre-commit hook raises the patch number on every commit that
+   touches this file, so nobody has to remember.
 
    Safari user style sheet. One file, one section per site; Safari on the Mac
    loads it from Settings > Advanced > Style sheet, and Safari on iPhone runs
