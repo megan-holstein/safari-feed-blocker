@@ -49,26 +49,33 @@ serves both machines.
 
 1. Install **Userscripts** from the App Store.
 2. Open **Settings > Apps > Safari > Extensions**, tap **Userscripts**, and turn
-   on **Allow Extension**. Then set its permission for **All Websites** to
-   **Allow**, so it runs on the five sites without asking each time.
-3. Open the Userscripts app once and leave its save location at the default,
+   on **Allow Extension**.
+3. On that same page, scroll to the bottom, below the Permissions text, tap
+   **Other Websites** and choose **Allow**. This is a second, separate grant,
+   and without it the extension is on but runs on no page at all: Safari says
+   so in the line "You have not allowed this extension on any websites yet",
+   and the symptom is that nothing ever changes and no list ever fills, with
+   no error anywhere. The row is set to Ask by default. A per-site row above
+   it (a site you once opened the extension's popup on) can stay as it is.
+4. Open the Userscripts app once and leave its save location at the default,
    which is the app's own folder. The Files app shows that folder under **On My
    iPhone > Userscripts**; the app writes a demo user script into it on first
    launch, which is what makes it visible there, and you can delete that demo
    once `user.css` is in.
-4. Put `user.css` in that folder, once, by whichever route reaches the phone
+5. Put `user.css` in that folder, once, by whichever route reaches the phone
    most easily. AirDrop it from your Mac. Or open
    [the raw file](https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css)
    in Safari and choose **Save to Files** from the share sheet. Or, if you keep
    a copy in iCloud Drive, copy it across in the Files app — copy it into the
    Userscripts folder, rather than pointing Userscripts at the iCloud folder,
    for the reason two paragraphs down.
-5. Open the Userscripts app again, or the extension's popup in Safari, and wait
-   for **Feed Blocker** to appear in its list. This step is not optional: the
-   extension keeps its own table of which file runs on which site, and it
-   rebuilds that table only when the app or the popup loads the list, never
-   when a file lands in the folder. A file the list has not shown yet injects
-   nothing. Then reload the page.
+6. Switch away from Safari and back, or quit Safari and reopen it, then reload
+   the page. The extension keeps its own table of which file runs on which
+   site, and it rebuilds that table when it regains focus or starts, never
+   when a file lands in the folder; a file it has not tabled yet injects
+   nothing. On iPhone the Userscripts app shows no list of files at all, only
+   its status and its folder, so an empty app screen means nothing. The list
+   lives in Safari, in the extension's popup.
 
 To confirm it is running, open one of the five sites, tap the button on the left
 of the address field, and choose **Userscripts**: the extension lists what it is
