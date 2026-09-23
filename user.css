@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Feed Blocker
 @description    Hides the feeds on Reddit, Facebook and Medium, the pictures on Instagram, and every social-media result on Google.
-@version        1.0.2
+@version        1.0.3
 @updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
@@ -67,18 +67,19 @@ shreddit-app[routename*="serp"] main > div > :is(hr, faceplate-partial) {
 }
 
 /* ---- google.com: no social media in the results --------------------------
-   Every web result sits in a block under the results list (#rso) that
-   carries a position attribute, and it is hidden whole when any link in it
-   goes to one of the sites below: the block takes its site-links and "More
-   results from" line with it. The AI Overview, in #m-x-content, is never
-   hidden, whatever it cites; the :not() keeps a result block that happens to
-   hold it from taking it along. Google's class names rotate; these ids and
-   attributes do not. The list is the thing to edit: one line per site, and
-   the trailing comma matters. `x.com` is matched on the "://" so that
-   box.com and netflix.com are not caught by a substring. YouTube is left out
-   on purpose, since most of what it answers on Google is a how-to; add a
-   line if you disagree. */
-#rso [data-rpos]:not(:has(#m-x-content)):has(
+   Every web result sits in a block under the results list (#rso), and it is
+   hidden whole when any link in it goes to one of the sites below: the block
+   takes its site-links and "More results from" line with it. The Mac's
+   blocks carry a position attribute (data-rpos); the phone's carry none, but
+   there each result is a direct child of #rso, so the rule names both. The
+   AI Overview, in #m-x-content, is never hidden, whatever it cites; the
+   :not() keeps a block that holds it from taking it along. Google's class
+   names rotate; these ids and attributes do not. The list is the thing to
+   edit: one line per site, and the trailing comma matters. `x.com` is
+   matched on the "://" so that box.com and netflix.com are not caught by a
+   substring. YouTube is left out on purpose, since most of what it answers
+   on Google is a how-to; add a line if you disagree. */
+:is(#rso [data-rpos], #rso > div):not(:has(#m-x-content)):has(
   a[href*="reddit.com/"],
   a[href*="facebook.com/"],
   a[href*="instagram.com/"],
