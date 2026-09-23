@@ -171,9 +171,8 @@ a page this section does not cover.
 **google.com.** Any web result that links to a social-media site, along
 with its site-links and the "More results from" line under it. The AI
 Overview always stays, whatever it cites, but the ways of talking back to it
-go: the text field in the follow-up bar under it, so the bar takes no typing,
-and the "Dive deeper in AI Mode" button, so a summary cannot become a
-conversation. The AI Mode tab above the results is
+go: the follow-up bar under it and the "Dive deeper in AI Mode" button, so a
+summary cannot become a conversation. The AI Mode tab above the results is
 left alone, since it starts a fresh one. The sites: Reddit, Facebook, Instagram, Threads, X and
 Twitter, TikTok, Snapchat, Pinterest, LinkedIn, Tumblr, Bluesky and Quora.
 YouTube is left out, because most of what it answers on Google is a how-to.
