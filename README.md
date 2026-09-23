@@ -212,15 +212,15 @@ has checked on a phone — see Limits.
   and iPad has no style-sheet setting of its own, which is what the header at
   the top of `user.css` is for. The phone apps are out of reach on either
   machine.
-- **Facebook and Google are unverified on the phone.** Signed out, a phone is
-  served a login form on m.facebook.com and never reaches the news feed, so the
-  Facebook rules could only be checked signed in, and they were not. Google
-  answered every automated request from the network this was tested on with a
-  CAPTCHA, so whether a phone's results still carry `#rso`, `[data-rpos]` and
-  `#m-x-content`, and draw the overview's follow-up bar the way the Mac does, is
-  an open question. Neither section was guessed at: both stand
-  exactly as the Mac verified them. If one of them misses on your phone, that is
-  why, and an issue saying what you see is welcome.
+- **Facebook is unverified on the phone, and Google is half verified.**
+  Signed out, a phone is served a login form on m.facebook.com and never
+  reaches the news feed, so the Facebook rules could only be checked signed
+  in, and they were not. Google was checked on a real iPhone on 2026-09-23,
+  signed in: the AI Overview shows and its follow-up bar is gone, but a
+  Reddit result still stood at the top of the page, so the social-results
+  rule does not match the markup Google serves a phone. Neither section was
+  guessed at for the phone; both stand as the Mac verified them, and an issue
+  saying what you see is welcome.
 - **The Mac and the phone load the file at different origins.** Safari's own
   setting loads it at *user* origin, where `!important` outranks the page's own
   `!important`. Userscripts appends it as an ordinary author style sheet, where
