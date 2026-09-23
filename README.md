@@ -169,9 +169,12 @@ page, and instagram.com itself is the login form. Signed in, the home feed is
 a page this section does not cover.
 
 **google.com.** Any web result that links to a social-media site, along
-with its site-links and the "More results from" line under it, and the AI
-Overview whenever it cites one, since an answer built on those sources is not
-one worth reading. The sites: Reddit, Facebook, Instagram, Threads, X and
+with its site-links and the "More results from" line under it. The AI
+Overview always stays, whatever it cites, but the ways of talking back to it
+go: the text field in the follow-up bar under it, so the bar takes no typing,
+and the "Dive deeper in AI Mode" button, so a summary cannot become a
+conversation. The AI Mode tab above the results is
+left alone, since it starts a fresh one. The sites: Reddit, Facebook, Instagram, Threads, X and
 Twitter, TikTok, Snapchat, Pinterest, LinkedIn, Tumblr, Bluesky and Quora.
 YouTube is left out, because most of what it answers on Google is a how-to.
 The list sits at the top of the Google section as one line per site, so
@@ -215,7 +218,8 @@ has checked on a phone — see Limits.
   Facebook rules could only be checked signed in, and they were not. Google
   answered every automated request from the network this was tested on with a
   CAPTCHA, so whether a phone's results still carry `#rso`, `[data-rpos]` and
-  `#m-x-content` is an open question. Neither section was guessed at: both stand
+  `#m-x-content`, and draw the overview's follow-up bar the way the Mac does, is
+  an open question. Neither section was guessed at: both stand
   exactly as the Mac verified them. If one of them misses on your phone, that is
   why, and an issue saying what you see is welcome.
 - **The Mac and the phone load the file at different origins.** Safari's own

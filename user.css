@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Feed Blocker
 @description    Hides the feeds on Reddit, Facebook and Medium, the pictures on Instagram, and every social-media result on Google.
-@version        1.0.0
+@version        1.0.1
 @updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
@@ -68,16 +68,17 @@ shreddit-app[routename*="serp"] main > div > :is(hr, faceplate-partial) {
 
 /* ---- google.com: no social media in the results --------------------------
    Every web result sits in a block under the results list (#rso) that
-   carries a position attribute, and the AI Overview sits in #m-x-content
-   above it. Either is hidden whole when any link in it goes to one of the
-   sites below: a result block takes its site-links and "More results from"
-   line with it, and an overview that cites a social site goes rather than
-   stand on it. Google's class names rotate; these ids and attributes do not.
-   The list is the thing to edit: one line per site, and the trailing comma
-   matters. `x.com` is matched on the "://" so that box.com and netflix.com
-   are not caught by a substring. YouTube is left out on purpose, since most
-   of what it answers on Google is a how-to; add a line if you disagree. */
-:is(#m-x-content, #rso [data-rpos]):has(
+   carries a position attribute, and it is hidden whole when any link in it
+   goes to one of the sites below: the block takes its site-links and "More
+   results from" line with it. The AI Overview, in #m-x-content, is never
+   hidden, whatever it cites; the :not() keeps a result block that happens to
+   hold it from taking it along. Google's class names rotate; these ids and
+   attributes do not. The list is the thing to edit: one line per site, and
+   the trailing comma matters. `x.com` is matched on the "://" so that
+   box.com and netflix.com are not caught by a substring. YouTube is left out
+   on purpose, since most of what it answers on Google is a how-to; add a
+   line if you disagree. */
+#rso [data-rpos]:not(:has(#m-x-content)):has(
   a[href*="reddit.com/"],
   a[href*="facebook.com/"],
   a[href*="instagram.com/"],
@@ -95,6 +96,18 @@ shreddit-app[routename*="serp"] main > div > :is(hr, faceplate-partial) {
   a[href*="bsky.app/"],
   a[href*="quora.com/"]
 ) {
+  display: none !important;
+}
+
+/* The AI Overview stays, but nothing on a results page opens a conversation
+   with it. Every text field on the page goes except the search box itself
+   (name="q"), which removes the follow-up bar under the overview wherever
+   Google puts it; and every link into AI Mode (udm=50) inside the results
+   column goes too, which removes the "Dive deeper in AI Mode" button and any
+   follow-up bar drawn as a link. The AI Mode tab above the results is left
+   alone: it opens a fresh conversation, not one seeded with the overview. */
+html:has(#rso) :is(textarea, input[type="text"], input:not([type]), [contenteditable="true"], [role="textbox"]):not([name="q"]),
+#rcnt a[href*="udm=50"] {
   display: none !important;
 }
 
