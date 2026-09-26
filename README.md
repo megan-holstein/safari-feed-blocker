@@ -1,6 +1,6 @@
 # safari-feed-blocker
 
-One CSS file that hides the feeds on Reddit, Facebook and Medium, the pictures
+One CSS file that hides the feeds on Reddit, Facebook, LinkedIn and Medium, the pictures
 on Instagram, and every social-media result on Google, in Safari on the Mac and
 in Safari on iPhone. On the Mac it needs nothing but Safari's own style-sheet
 setting: no extension, no account, nothing installed, nothing that phones home.
@@ -26,8 +26,8 @@ no dark theme of its own.
 2. In Safari, open **Settings** (⌘,), then the **Advanced** tab.
 3. Beside **Style sheet**, choose **Other…** and pick the file.
 
-That is the whole installation. Reload any open Reddit, Facebook, Instagram,
-Medium or Google tab and the feed is gone.
+That is the whole installation. Reload any open Reddit, Facebook, LinkedIn,
+Instagram, Medium or Google tab and the feed is gone.
 
 If you would rather do it from Terminal:
 
@@ -77,7 +77,7 @@ serves both machines.
    its status and its folder, so an empty app screen means nothing. The list
    lives in Safari, in the extension's popup.
 
-To confirm it is running, open one of the five sites, tap the button on the left
+To confirm it is running, open one of the six sites, tap the button on the left
 of the address field, and choose **Userscripts**: the extension lists what it is
 running on the page, and **Feed Blocker** is in the list.
 
@@ -118,7 +118,7 @@ same symptoms in [#424](https://github.com/quoid/userscripts/issues/424),
 on a backend refactor that has not shipped. Until it does, leave the save
 location alone and let the update check above carry the changes.
 
-One thing the sheet cannot reach: a link to Reddit or Facebook opens that site's
+One thing the sheet cannot reach: a link to Reddit, Facebook or LinkedIn opens that site's
 own app when you have the app installed, and the sheet governs Safari only. Open
 such a link with **Open in Safari**, or keep the app off the phone.
 
@@ -153,6 +153,8 @@ page the Home view's friend requests and "People you may know" suggestions,
 so that the page opens empty and All friends is one click away in the rail. What stays: the composer, the menu on the left, the column on the
 right, and every other page. Groups and profiles keep their posts, because the
 feed rule applies only to the page that carries the Stories tray.
+
+**linkedin.com.** The home feed, on the Mac and on the phone, which LinkedIn serves as two different sites: every post in it, promoted and suggested ones included, the "New posts" pill, and the loader that fetches the next batch, so the page stops fetching. On the Mac, the "Start a post" box at the top of the feed stays, along with the profile card on the left and LinkedIn News on the right; on the phone, the search bar and both navigation bars stay, and posting is the Post tab in the bottom bar. Every other page is untouched: a profile and its activity, a company page, a post opened from a link, messaging, notifications, jobs and search. Both rules were checked signed in on 2026-09-26, the phone's on a real iPhone.
 
 **instagram.com.** On a profile: the profile picture, the story highlights, the
 whole grid under the Posts, Reels and Tagged tabs, and the "Accounts you might
@@ -203,8 +205,7 @@ the phone lays the page out in one column. Instagram took two edits, both of
 them in this file: a post carries no `[role="main"]` on a phone, so the rule
 names the `<article>` the phone draws instead as well; and on a profile an
 `<hr>` sits between the tabs and the grid, so the rule reaches the grid as a
-later sibling as well as the next one. Facebook and Google are the two nobody
-has checked on a phone — see Limits.
+later sibling as well as the next one. LinkedIn needed a rule of its own: a phone gets LinkedIn's lighter mobile site, with none of the markup the Mac's rule keys on, so the section names both. Facebook is the one nobody has checked on a phone — see Limits.
 
 ## Limits
 
@@ -223,7 +224,7 @@ has checked on a phone — see Limits.
   setting loads it at *user* origin, where `!important` outranks the page's own
   `!important`. Userscripts appends it as an ordinary author style sheet, where
   a page's rule can win. Every rule here already declares
-  `display: none !important`, which is enough against these five sites as they
+  `display: none !important`, which is enough against these six sites as they
   stand — but a rule that works on the Mac and fails on the phone, with no
   change to the site's markup, is the signature of that difference.
 - The sheet applies to every page you visit, so each rule is written to match
@@ -239,7 +240,7 @@ If you want to repair a rule yourself: open the page, choose **Develop > Show
 Web Inspector** (turn the Develop menu on under Settings > Advanced first),
 and read what the feed's container is called now. Reddit uses named custom
 elements (`shreddit-feed`, `recent-posts`), which are easy. Facebook,
-Instagram and Medium randomise their class names, so the rules there key on
+LinkedIn, Instagram and Medium randomise their class names, so the rules there key on
 things that survive a rebuild: `role`, `aria-*` and `data-*` attributes, the
 alt text on a picture, the head's own `og:` and `al:` metadata, and the shape
 of the markup around a stable heading. One rule of CSS to remember while editing:

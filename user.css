@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Feed Blocker
-@description    Hides the feeds on Reddit, Facebook and Medium, the pictures on Instagram, and every social-media result on Google.
-@version        1.0.3
+@description    Hides the feeds on Reddit, Facebook, LinkedIn and Medium, the pictures on Instagram, and every social-media result on Google.
+@version        1.0.4
 @updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
@@ -9,6 +9,7 @@
 @match          *://*.instagram.com/*
 @match          *://*.medium.com/*
 @match          *://*.google.com/*
+@match          *://*.linkedin.com/*
 ==/UserStyle== */
 
 /* The block above is what the Userscripts extension reads on iPhone, and it
@@ -151,6 +152,33 @@ html:has(a[href*="/reel/following/"]) [role="main"] {
 [role="main"][aria-label="Friends"] > div > div > div:has(a[aria-label="See all friend requests"]),
 [role="main"][aria-label="Friends"] > div > div > div:has(a[aria-label="See all suggestions"]),
 [role="main"][aria-label="Friends"] > div > div > hr {
+  display: none !important;
+}
+
+/* ---- linkedin.com: no feed ----------------------------------------------
+   LinkedIn serves the Mac and the phone two different apps, so the section
+   names each. Neither rule keys on a class name that the build hashes.
+
+   The Mac: the home page's wrapper names its screen (`...feed.MainFeed`),
+   and the feed under it is one list, data-testid="mainFeed", whose entries
+   are the "Start a post" composer, the "New posts" pill, every post
+   (promoted and suggested ones included), and the loader at the end that
+   fetches the next batch. Every entry goes except the composer, which is
+   the one holding the share box's picture; with the loader hidden the page
+   stops fetching.
+
+   The phone: LinkedIn's lighter mobile site, where the feed is the list in
+   the `.feeds` section and a loader under it fetches the next batch; the
+   list, its items, the loader and the "New posts" pill go. The page is known
+   by its bottom bar, whose Home tab is the selected one. A post opened from
+   a link also leaves Home selected, but it has no `.feeds` section, so the
+   post stays; posting stays too, since it is the Post tab in that bar.
+
+   On both, every other page is untouched: a profile's activity, a company
+   page, a post opened from a link, messaging, jobs, search. */
+[data-sdui-screen$=".feed.MainFeed"] [data-testid="mainFeed"] > :not(:has(#shareboxProfilePictureComponentRef)),
+html:has(#primary-nav [data-nav-type="HOME"] [aria-selected="true"]) #app-container .feeds :is(.feed-container, .feed-item, .loader--scroller),
+html:has(#primary-nav [data-nav-type="HOME"] [aria-selected="true"]) #new-content-pill {
   display: none !important;
 }
 
