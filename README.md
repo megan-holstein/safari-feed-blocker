@@ -152,7 +152,7 @@ page's main column is emptied and only the rail is left; and on the Friends
 page the Home view's friend requests and "People you may know" suggestions,
 so that the page opens empty and All friends is one click away in the rail. What stays: the composer, the menu on the left, the column on the
 right, and every other page. Groups and profiles keep their posts, because the
-feed rule applies only to the page that carries the Stories tray.
+feed rule applies only to the home page, which it knows by either of two markers: the Stories tray in the main column, or the Home tab marked as the current page. Either one is enough, so the feed stays hidden if Facebook ever draws the home page without the tray.
 
 **linkedin.com.** The home feed, on the Mac and on the phone, which LinkedIn serves as two different sites: every post in it, promoted and suggested ones included, the "New posts" pill, and the loader that fetches the next batch, so the page stops fetching. On the Mac, the "Start a post" box at the top of the feed stays, along with the profile card on the left and LinkedIn News on the right; on the phone, the search bar and both navigation bars stay, and posting is the Post tab in the bottom bar. Every other page is untouched: a profile and its activity, a company page, a post opened from a link, messaging, notifications, jobs and search. Both rules were checked signed in on 2026-09-26, the phone's on a real iPhone.
 

@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Feed Blocker
 @description    Hides the feeds on Reddit, Facebook, LinkedIn and Medium, the pictures on Instagram, and every social-media result on Google.
-@version        1.0.4
+@version        1.0.5
 @updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
@@ -120,16 +120,21 @@ html:has(#rso) :is(textarea, input[type="text"], input:not([type]), [contentedit
 
 /* ---- facebook.com: no news feed ----------------------------------------
    Facebook randomises its class names and this build carries no role="feed",
-   so the rules key on what the page says about itself. The home page is the
-   one whose main column carries the Stories tray, and the feed is the block
-   under it that opens with a heading followed by a hidden spacer: "Feed
-   posts". The composer and the tray above it stay, so do the columns either
-   side; group and profile pages have no tray and are untouched. */
+   so the rules key on what the page says about itself. The home page is
+   known two ways, and either one is enough: its main column carries the
+   Stories tray, and the Home tab in the top bar is marked as the current
+   page. The tray alone once let the feed through after a message was
+   answered, so the tab stands behind it. The feed is the block that opens
+   with a heading followed by a hidden spacer: "Feed posts". The composer
+   stays, so do the columns either side; group and profile pages have
+   neither marker and are untouched. */
 
 /* The whole feed block, heading included. */
 [role="main"]:has([data-focus-target="stories_tray"]) div:has(> h3 + div[aria-hidden="true"] + div),
+html:has([role="banner"] a[aria-label="Home"][aria-current="page"]) [role="main"] div:has(> h3 + div[aria-hidden="true"] + div),
 /* And each post on its own, should the block's shape change first. */
 [role="main"]:has([data-focus-target="stories_tray"]) div[aria-posinset],
+html:has([role="banner"] a[aria-label="Home"][aria-current="page"]) [role="main"] div[aria-posinset],
 /* The Stories tray itself. The feed rules above still key on it, since
    :has() sees an element whether or not it is displayed. */
 [role="main"] [data-focus-target="stories_tray"] {
