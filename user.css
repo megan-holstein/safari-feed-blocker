@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Feed Blocker
 @description    Hides the feeds on Reddit, Facebook, LinkedIn and Medium, the pictures on Instagram, and every social-media result on Google.
-@version        1.0.5
+@version        1.0.6
 @updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
@@ -187,7 +187,7 @@ html:has(#primary-nav [data-nav-type="HOME"] [aria-selected="true"]) #new-conten
   display: none !important;
 }
 
-/* ---- medium.com: no feed, and dark when the Mac is dark ------------------
+/* ---- medium.com: no feed --------------------------------------------------
    Feed cards carry a `source=` tag in every link that names the surface they
    were served on, which is what these rules key on; the drafts list, stats,
    notifications and a profile's own stories carry other tags and stay. */
@@ -211,23 +211,6 @@ main:has(a[role="tab"][href*="medium.com/?"]) + div {
 /* The whole recommendation block under a story, headings included. */
 div:has(> div > div > div > article[data-testid="post-preview"] a[href*="_recirc"]) {
   display: none !important;
-}
-
-/* Dark mode, following the Mac's appearance. Medium has no dark theme of its
-   own and randomises its class names, so this inverts the page and then
-   inverts pictures back. The meta tag is on every Medium page and on nothing
-   else, which keeps the filter off every other site. */
-@media (prefers-color-scheme: dark) {
-  html:has(meta[property="al:android:package"][content="com.medium.reader"]) {
-    filter: invert(1) hue-rotate(180deg);
-    background: #fff !important;
-  }
-  html:has(meta[property="al:android:package"][content="com.medium.reader"]) body {
-    background: #fff !important;
-  }
-  html:has(meta[property="al:android:package"][content="com.medium.reader"]) :is(img, video, picture, canvas, iframe, [style*="background-image"]) {
-    filter: invert(1) hue-rotate(180deg);
-  }
 }
 
 /* ---- instagram.com: no pictures, and a post opens empty -----------------

@@ -15,9 +15,6 @@ no account and open Instagram only from a link somebody sent you, so it keeps
 what a profile says in words and takes away every picture, and a post or a reel
 opens empty.
 
-It also turns Medium dark when your Mac or your phone is dark, since Medium has
-no dark theme of its own.
-
 ## Install on the Mac
 
 1. Download `user.css` from this repo (or clone the repo) and keep the file
@@ -189,12 +186,6 @@ column beside it (Staff Picks, Recommended topics, Who to follow, Reading
 list), and the "More from" and "Recommended from Medium" blocks under a story.
 What stays: the story itself and its responses, your profile and its stories,
 your drafts and published lists, stats and notifications.
-
-**Dark mode on Medium** follows the appearance of whatever you are reading on —
-on the Mac, System Settings > Appearance, or the Display tile in Control Center,
-where Auto turns it on at sunset; on the phone, Settings > Display & Brightness.
-The page is inverted and pictures are inverted back. If you do not want it,
-delete the block that begins `@media (prefers-color-scheme: dark)`.
 
 **On the phone.** Reddit and Medium carry over as they stand. Reddit serves a
 phone the same app it serves a Mac, on the same host, with the same custom
