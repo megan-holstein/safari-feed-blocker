@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Feed Blocker
 @description    Hides the feeds on Reddit, Facebook, LinkedIn and Medium, the pictures on Instagram, and every social-media result on Google.
-@version        1.0.7
+@version        1.0.8
 @updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
@@ -154,11 +154,18 @@ html:has([role="banner"] a[aria-label="Home"][aria-current="page"]) [role="main"
    the next batch only when it comes into view, so the page stops fetching),
    the banners between units that load on the same signal, and the spacers
    the list keeps for rows it has not drawn. The top bar, the tabs and the
-   composer stay. The Reels tab goes as well, as Reels do on the Mac.
+   composer stay. The Reels tab goes dark as well, as Reels do on the Mac:
+   the strip gives each tab a fixed slot, so the tab is emptied and made
+   untappable rather than removed, which would leave a grey hole.
    Checked signed in on a real iPhone on 2026-10-06. */
-[data-type="vscroller"]:has(> [role="tablist"] > [role="tab"][aria-label^="feed"][aria-selected="true"]) > :is([data-tracking-duration-id], [data-on-first-visibility-action-id], :has([aria-label="Create story"]), .filler),
-[role="tablist"] > [role="tab"][aria-label^="reels"] {
+[data-type="vscroller"]:has(> [role="tablist"] > [role="tab"][aria-label^="feed"][aria-selected="true"]) > :is([data-tracking-duration-id], [data-on-first-visibility-action-id], :has([aria-label="Create story"]), .filler) {
   display: none !important;
+}
+[role="tablist"] > [role="tab"][aria-label^="reels"] {
+  pointer-events: none !important;
+}
+[role="tablist"] > [role="tab"][aria-label^="reels"] > * {
+  visibility: hidden !important;
 }
 
 /* Reels. A reel is a page of its own, and the Reels section carries a rail
