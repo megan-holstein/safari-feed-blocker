@@ -196,7 +196,7 @@ the phone lays the page out in one column. Instagram took two edits, both of
 them in this file: a post carries no `[role="main"]` on a phone, so the rule
 names the `<article>` the phone draws instead as well; and on a profile an
 `<hr>` sits between the tabs and the grid, so the rule reaches the grid as a
-later sibling as well as the next one. LinkedIn needed a rule of its own: a phone gets LinkedIn's lighter mobile site, with none of the markup the Mac's rule keys on, so the section names both. Facebook is the one nobody has checked on a phone — see Limits.
+later sibling as well as the next one. LinkedIn needed a rule of its own: a phone gets LinkedIn's lighter mobile site, with none of the markup the Mac's rule keys on, so the section names both. Facebook needed one too: a phone gets an app of Facebook's own on the same host, which draws the home screen as a single scrolling list, so on the phone the section hides every feed unit in the list under the selected feed tab, the Stories tray, the loader that fetches the next batch, and the Reels tab, and leaves the top bar, the other tabs and the composer. A profile or a group is a screen of its own and is untouched. The phone's Facebook rules were checked signed in on a real iPhone on 2026-10-06; the Reels page and the Friends page there were not.
 
 ## Limits
 
@@ -204,11 +204,7 @@ later sibling as well as the next one. LinkedIn needed a rule of its own: a phon
   and iPad has no style-sheet setting of its own, which is what the header at
   the top of `user.css` is for. The phone apps are out of reach on either
   machine.
-- **Facebook is unverified on the phone.** Signed out, a phone is served a
-  login form on m.facebook.com and never reaches the news feed, so the
-  Facebook rules could only be checked signed in, and they were not; the
-  section stands as the Mac verified it, and an issue saying what you see is
-  welcome. Google was checked on a real iPhone on 2026-09-23, signed in. Its
+- **Google was checked on a real iPhone on 2026-09-23, signed in.** Its
   results carry no position attribute there, which is why the section also
   names each direct child of the results list.
 - **The Mac and the phone load the file at different origins.** Safari's own

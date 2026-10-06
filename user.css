@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Feed Blocker
 @description    Hides the feeds on Reddit, Facebook, LinkedIn and Medium, the pictures on Instagram, and every social-media result on Google.
-@version        1.0.6
+@version        1.0.7
 @updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
@@ -16,7 +16,8 @@
    is a CSS comment, so Safari on the Mac passes over it. The parser is
    literal about that first line and that last line and refuses a file naming
    no @name, so leave both as they are. `*://*.facebook.com/*` covers
-   m.facebook.com, which is where a phone lands.
+   both www.facebook.com and m.facebook.com, either of which a phone may
+   land on.
 
    @version, @updateURL and @downloadURL are what carry an edit to the phone.
    Userscripts treats a file as updatable only when it declares both a version
@@ -138,6 +139,25 @@ html:has([role="banner"] a[aria-label="Home"][aria-current="page"]) [role="main"
 /* The Stories tray itself. The feed rules above still key on it, since
    :has() sees an element whether or not it is displayed. */
 [role="main"] [data-focus-target="stories_tray"] {
+  display: none !important;
+}
+
+/* The phone. Facebook serves a phone a different app on the same host, with
+   none of the markup above: each screen is one scroller, and the home
+   screen's scroller holds the top bar, a tab strip, the composer, the
+   Stories tray and then the feed, every unit of which (post, ad, reel
+   shelf, suggestions) carries a data-tracking-duration-id. The home screen
+   is known by its own tab strip, where the feed tab is the selected one;
+   the rule is scoped to the scroller holding that strip, so a profile or a
+   group opened on top of it, which is a screen of its own, is untouched.
+   The units go, with the Stories tray, the loader at the end (which fetches
+   the next batch only when it comes into view, so the page stops fetching),
+   the banners between units that load on the same signal, and the spacers
+   the list keeps for rows it has not drawn. The top bar, the tabs and the
+   composer stay. The Reels tab goes as well, as Reels do on the Mac.
+   Checked signed in on a real iPhone on 2026-10-06. */
+[data-type="vscroller"]:has(> [role="tablist"] > [role="tab"][aria-label^="feed"][aria-selected="true"]) > :is([data-tracking-duration-id], [data-on-first-visibility-action-id], :has([aria-label="Create story"]), .filler),
+[role="tablist"] > [role="tab"][aria-label^="reels"] {
   display: none !important;
 }
 
