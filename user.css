@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Feed Blocker
-@description    Hides the feeds on Reddit, Facebook, LinkedIn and Medium, the pictures on Instagram, and every social-media result on Google.
-@version        1.0.8
+@description    Hides the feeds on Reddit, Facebook, LinkedIn, Medium and YouTube, YouTube's Shorts, the pictures on Instagram, and every social-media result on Google.
+@version        1.0.9
 @updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
@@ -10,6 +10,7 @@
 @match          *://*.medium.com/*
 @match          *://*.google.com/*
 @match          *://*.linkedin.com/*
+@match          *://*.youtube.com/*
 ==/UserStyle== */
 
 /* The block above is what the Userscripts extension reads on iPhone, and it
@@ -298,5 +299,65 @@ html:has(meta[property="al:ios:url"][content^="instagram://media"]) :is([role="m
    are nothing but a grid signed out. Both declare `og:url` on /popular/, so
    both are emptied. */
 html:has(meta[property="og:url"][content*="instagram.com/popular/"]) [role="main"] {
+  display: none !important;
+}
+
+/* ---- youtube.com: no feed, no Shorts, only the video you were sent ------
+   Written for a reader who opens YouTube only from a link somebody sent: the
+   video plays, with its title, description and comments, and nothing on the
+   page offers the next one. YouTube serves the Mac (www., custom elements
+   named ytd-*) and the phone (m., named ytm-*) two different apps, so each
+   rule names both where both exist. Neither app hashes its element names,
+   and the attributes these rules key on are YouTube's own identifiers, not
+   translated text, except the Mac's Shorts entry in the side menu, which
+   carries no link and is known by its English title. Search, channel pages,
+   playlists, history and Watch later are untouched. */
+
+/* The home feed and the Subscriptions feed. On the Mac each is a browse page
+   that names its kind (page-subtype) and draws its videos, and the chips
+   above them, in one grid; on the phone each is a tab that names its feed
+   (FEwhat_to_watch, FEsubscriptions). The page is left empty, with the
+   search box and the menu still there. */
+ytd-browse:is([page-subtype="home"], [page-subtype="subscriptions"]) ytd-rich-grid-renderer,
+[tab-identifier="FEwhat_to_watch"],
+[tab-identifier="FEsubscriptions"] {
+  display: none !important;
+}
+
+/* A video page: the column of recommended videos beside the player on the
+   Mac (or under it in a narrow window, where YouTube moves the same element
+   below the description), and the related-items sections under the video on
+   the phone, with the loader that fetches more of them. A playlist somebody
+   sent keeps its own panel, which is a different element. */
+ytd-watch-flexy ytd-watch-next-secondary-results-renderer,
+ytm-item-section-renderer[section-identifier="related-items"] {
+  display: none !important;
+}
+
+/* The player's own suggestions: the wall of videos when one ends, the grid
+   that opens under a fullscreen video, the creator's end cards, and the
+   "Up next" countdown. Hiding the countdown does not stop autoplay, which
+   is a setting: turn Autoplay off once in the player's controls. */
+.html5-video-player :is(.html5-endscreen, .ytp-fullscreen-grid, .ytp-ce-element, .ytp-autonav-endscreen-countdown-overlay) {
+  display: none !important;
+}
+
+/* Shorts. The Shorts player is a feed of its own, one swipe from the next,
+   so a Short opens empty even from a link somebody sent: ytd-shorts on the
+   Mac, shorts-page on the phone. To watch one, change /shorts/ in the
+   address to /watch?v= and it plays as an ordinary video. The rest goes
+   wherever YouTube draws it: the Shorts entry in the Mac's side menu and
+   collapsed menu, the Shorts tab in the phone's bottom bar and on a
+   channel, every Shorts shelf in search results and on a channel, and any
+   single result that links into the Shorts player. */
+ytd-shorts,
+shorts-page,
+ytd-guide-entry-renderer:has(a[title="Shorts"]),
+ytd-mini-guide-entry-renderer[aria-label="Shorts"],
+ytm-pivot-bar-item-renderer:has(.pivot-shorts),
+yt-tab-shape[tab-title="Shorts"],
+:is(grid-shelf-view-model, ytd-reel-shelf-renderer, ytm-reel-shelf-renderer, ytd-rich-shelf-renderer, ytd-rich-section-renderer):has(a[href^="/shorts/"]),
+:is(ytd-video-renderer, ytd-rich-item-renderer, ytm-video-with-context-renderer, ytm-rich-item-renderer):has(a[href^="/shorts/"]),
+ytm-shorts-lockup-view-model {
   display: none !important;
 }
