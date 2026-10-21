@@ -1,7 +1,7 @@
 # safari-feed-blocker
 
 One CSS file that hides the feeds on Reddit, Facebook, LinkedIn, Medium and YouTube,
-YouTube's Shorts, the pictures on Instagram, and every social-media result on Google, in Safari on the Mac and
+YouTube's Shorts and comments, the pictures on Instagram, and every social-media result on Google, in Safari on the Mac and
 in Safari on iPhone. On the Mac it needs nothing but Safari's own style-sheet
 setting: no extension, no account, nothing installed, nothing that phones home.
 On the phone the same file, unchanged, runs through Userscripts, a free and
@@ -10,7 +10,9 @@ the post you open, its comments, your inbox, your groups, your own profile,
 search. What disappears is the endless column that keeps you there after you
 have done what you came to do.
 
-Instagram is the one deliberate exception. The section for it assumes you have
+YouTube and Instagram are the two deliberate exceptions. YouTube loses its
+comments as well as its feeds, so a video somebody sent you plays with its
+title and description and nothing under them. The section for Instagram assumes you have
 no account and open Instagram only from a link somebody sent you, so it keeps
 what a profile says in words and takes away every picture, and a post or a reel
 opens empty.
@@ -187,7 +189,7 @@ list), and the "More from" and "Recommended from Medium" blocks under a story.
 What stays: the story itself and its responses, your profile and its stories,
 your drafts and published lists, stats and notifications.
 
-**youtube.com.** Written for opening YouTube only from a link somebody sent. The home feed and the Subscriptions feed, so both pages open empty with the search box and the menu still there; on a video, the column of recommended videos beside the player (or under it in a narrow window) and, on the phone, the related videos under it; and the player's own suggestions, which are the wall of videos when one ends, the grid under a fullscreen video, the creator's end cards and the "Up next" countdown. Hiding the countdown does not stop autoplay, which is a setting, so turn **Autoplay** off once in the player's controls. Shorts go everywhere: the Shorts entry in the side menu, the Shorts tab in the phone's bottom bar and on a channel, every Shorts shelf in search and on a channel, and any single result that opens the Shorts player. The Shorts player is a feed of its own, so a Short opens empty even from a link somebody sent; change `/shorts/` in the address to `/watch?v=` and it plays as an ordinary video. What stays: the video you were sent, its title, description and comments, a playlist somebody sent, search, channel pages, history and Watch later. Checked on 2026-10-18 in WebKit, signed out, against the Mac's site and the phone's (`m.youtube.com`); the end-screen rules were checked against the player's markup, not against a video played to its end.
+**youtube.com.** Written for opening YouTube only from a link somebody sent. The home feed and the Subscriptions feed, so both pages open empty with the search box and the menu still there; on a video, the column of recommended videos beside the player (or under it in a narrow window) and, on the phone, the related videos under it; and the player's own suggestions, which are the wall of videos when one ends, the grid under a fullscreen video, the creator's end cards and the "Up next" countdown. Hiding the countdown does not stop autoplay, which is a setting, so turn **Autoplay** off once in the player's controls. Shorts go everywhere: the Shorts entry in the side menu, the Shorts tab in the phone's bottom bar and on a channel, every Shorts shelf in search and on a channel, and any single result that opens the Shorts player. The Shorts player is a feed of its own, so a Short opens empty even from a link somebody sent; change `/shorts/` in the address to `/watch?v=` and it plays as an ordinary video. Comments go everywhere too: on the Mac, the comment section under a video and under a channel's post, the top-comment teaser under the description and the side panel comments open in; on the phone, the comments card under the title and the list it opens. On the Mac, YouTube fetches comments only when their section scrolls into view, so with the section hidden they never load at all. What stays: the video you were sent, its title and description, a playlist somebody sent, search, channel pages, history and Watch later. Checked on 2026-10-18 in WebKit, signed out, against the Mac's site and the phone's (`m.youtube.com`); the end-screen rules were checked against the player's markup, not against a video played to its end. The comment rules were checked on 2026-10-20 the same way, against both sites; the Mac's comment side panel was checked against its markup, closed, and a channel's post page was not checked.
 
 **On the phone.** Reddit and Medium carry over as they stand. Reddit serves a
 phone the same app it serves a Mac, on the same host, with the same custom

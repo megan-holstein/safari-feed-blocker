@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Feed Blocker
-@description    Hides the feeds on Reddit, Facebook, LinkedIn, Medium and YouTube, YouTube's Shorts, the pictures on Instagram, and every social-media result on Google.
-@version        1.0.9
+@description    Hides the feeds on Reddit, Facebook, LinkedIn, Medium and YouTube, YouTube's Shorts and comments, the pictures on Instagram, and every social-media result on Google.
+@version        1.0.10
 @updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
@@ -302,10 +302,10 @@ html:has(meta[property="og:url"][content*="instagram.com/popular/"]) [role="main
   display: none !important;
 }
 
-/* ---- youtube.com: no feed, no Shorts, only the video you were sent ------
+/* ---- youtube.com: no feed, no Shorts, no comments, only the video ---------
    Written for a reader who opens YouTube only from a link somebody sent: the
-   video plays, with its title, description and comments, and nothing on the
-   page offers the next one. YouTube serves the Mac (www., custom elements
+   video plays, with its title and description, and nothing on the page
+   offers the next one or a comment thread to read. YouTube serves the Mac (www., custom elements
    named ytd-*) and the phone (m., named ytm-*) two different apps, so each
    rule names both where both exist. Neither app hashes its element names,
    and the attributes these rules key on are YouTube's own identifiers, not
@@ -339,6 +339,22 @@ ytm-item-section-renderer[section-identifier="related-items"] {
    "Up next" countdown. Hiding the countdown does not stop autoplay, which
    is a setting: turn Autoplay off once in the player's controls. */
 .html5-video-player :is(.html5-endscreen, .ytp-fullscreen-grid, .ytp-ce-element, .ytp-autonav-endscreen-countdown-overlay) {
+  display: none !important;
+}
+
+/* Comments, wherever YouTube draws them. On the Mac: the comment section
+   under a video (ytd-comments, which a channel's post page reuses), the
+   top-comment teaser under the description, and the side panel the comments
+   open in on some layouts. On the phone: the comments card under the title,
+   which is one item in a carousel that is emptied when it is the only item
+   there, and the comment list the card opens. */
+ytd-comments,
+ytd-watch-metadata #comment-teaser,
+ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-comments-section"],
+yt-carousel-item-view-model:has(> yt-comment-teaser-carousel-item-view-model),
+yt-video-metadata-carousel-view-model:has(yt-carousel-item-view-model:only-child > yt-comment-teaser-carousel-item-view-model),
+ytm-engagement-panel:has(ytm-item-section-renderer[section-identifier="comment-item-section"]),
+ytm-item-section-renderer[section-identifier="comment-item-section"] {
   display: none !important;
 }
 
