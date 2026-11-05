@@ -17,16 +17,27 @@ no account and open Instagram only from a link somebody sent you, so it keeps
 what a profile says in words and takes away every picture, and a post or a reel
 opens empty.
 
+## Get the file
+
+You install it by hand, in Safari's own settings on the Mac and through one free extension from the App Store on the phone. No step uses AI or the command line, and none needs a GitHub account.
+
+The only file you need is `user.css`. To download it without git:
+
+1. On this repo's page on GitHub, click `user.css` in the list of files.
+2. Above the file's text, on the right, click the download button (its tooltip reads **Download raw file**). Safari saves `user.css` to your Downloads folder.
+
+On iPhone, step 5 of the iPhone install below offers a shorter route.
+
 ## Install on the Mac
 
-1. Download `user.css` from this repo (or clone the repo) and keep the file
-   somewhere it will stay, such as `~/Documents/user.css`. Safari reads it from
-   wherever you leave it, so moving the file later breaks the link.
+1. Get `user.css` as described above (or clone the repo) and move it somewhere it will stay, such as your Documents folder (`~/Documents/user.css`). Safari reads it from wherever you leave it, so moving the file later breaks the link.
 2. In Safari, open **Settings** (⌘,), then the **Advanced** tab.
 3. Beside **Style sheet**, choose **Other…** and pick the file.
 
 That is the whole installation. Reload any open Reddit, Facebook, LinkedIn,
 Instagram, Medium, YouTube or Google tab and the feed is gone.
+
+**To update it on the Mac,** download `user.css` again the same way, then drag it from Downloads onto the old copy's folder and choose **Replace** when Finder asks. Keep the same name and the same folder, and Safari picks up the new rules on the next reload, with nothing to set again. The version number sits on the `@version` line near the top of the file, so you can compare your copy with the one on GitHub.
 
 If you would rather do it from Terminal:
 
@@ -222,7 +233,7 @@ later sibling as well as the next one. LinkedIn needed a rule of its own: a phon
   things only its own site has. If some other site ever loses an element, the
   culprit is one of these rules, and deleting the section fixes it.
 - Sites rename their markup from time to time, and when one does its feed
-  comes back until the rule is updated. Pull the repo again, or open an issue
+  comes back until the rule is updated. Download `user.css` again (or pull the repo), or open an issue
   saying which site and what you see.
 
 ## When a site changes
