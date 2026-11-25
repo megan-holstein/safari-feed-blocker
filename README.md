@@ -144,6 +144,26 @@ such a link with **Open in Safari**, or keep the app off the phone.
   purpose. Turning it off means opening Settings, which is enough friction to
   make you notice you are doing it.
 
+## Keep your own exceptions
+
+Some pages you may want left alone: one community whose feed you do read, say. Keep those in a second, short style sheet of your own, so an update to `user.css` never overwrites them. Every rule in `user.css` sits inside one style query, so the whole sheet stands down on any page whose root sets `--feed-blocker` to `off`. CSS cannot read a page's address, so an exception keys on something only that page carries. This one leaves the feed of r/WritingWithAI alone, since Reddit draws the community's header, named for it, only on its own page:
+
+```css
+/* ==UserStyle==
+@name           Feed Blocker exceptions
+@match          *://*.reddit.com/*
+==/UserStyle== */
+
+html:has(shreddit-subreddit-header[name="WritingWithAI" i]) {
+  --feed-blocker: off !important;
+}
+```
+
+Save it as `exceptions.css`. The `i` makes the name match whatever capitals the address uses. Name every site you write an exception for on an `@match` line of its own.
+
+- **On iPhone,** put `exceptions.css` in the Userscripts folder beside `user.css`, the same way you put `user.css` there, then switch away from Safari and back. It lists as **Feed Blocker exceptions**. It carries no update URL, so a later edit travels to the phone the same way, by hand.
+- **On the Mac,** Safari reads only one style sheet, so join the two into a third and point Safari at that instead of `user.css`: `cat user.css exceptions.css > feed-blocker.css` in the folder that holds them, and choose `feed-blocker.css` beside **Style sheet**. Run the same line again after each update or each edit to your exceptions. Without Terminal, paste your exceptions at the end of your copy of `user.css`, and paste them again after each update.
+
 ## What each section hides
 
 **reddit.com.** The feed on the home page, r/popular and r/all. On a
@@ -215,6 +235,7 @@ later sibling as well as the next one. LinkedIn needed a rule of its own: a phon
 
 ## Limits
 
+- **It needs Safari 18 or later, on the Mac and on the phone.** The rules sit inside a style query, which Safari 18 was the first to support; an older Safari drops the whole block and hides nothing.
 - **The Mac needs no extension; the phone needs Userscripts.** Safari on iPhone
   and iPad has no style-sheet setting of its own, which is what the header at
   the top of `user.css` is for. The phone apps are out of reach on either

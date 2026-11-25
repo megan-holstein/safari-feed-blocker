@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           Feed Blocker
 @description    Hides the feeds on Reddit, Facebook, LinkedIn, Medium and YouTube, YouTube's Shorts and comments, the pictures on Instagram, and every social-media result on Google.
-@version        1.0.10
+@version        1.0.11
 @updateURL      https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @downloadURL    https://raw.githubusercontent.com/megan-holstein/safari-feed-blocker/main/user.css
 @match          *://*.reddit.com/*
@@ -33,6 +33,17 @@
    loads it from Settings > Advanced > Style sheet, and Safari on iPhone runs
    the same file through Userscripts. README.md beside it says how each
    section was verified and what to check when a site changes its markup. */
+
+/* ---- Exceptions: a page you mark is left alone ---------------------------
+   Every rule below sits inside one style query, so the whole sheet stands
+   down on any page whose root sets --feed-blocker to off. Your exceptions
+   live in a second, short style sheet of your own, which an update to this
+   file never touches; README.md, "Keep your own exceptions", shows how to
+   write one and how to load it on each machine. A rule cannot un-hide what
+   this sheet hides (`revert` would drop the site's own styles as well), so
+   the gate is here, around everything. It needs Safari 18 or later: an
+   older Safari drops the whole block and hides nothing. */
+@container not style(--feed-blocker: off) {
 
 /* ---- reddit.com: no feed, pinned posts only ---------------------------- */
 
@@ -377,3 +388,5 @@ yt-tab-shape[tab-title="Shorts"],
 ytm-shorts-lockup-view-model {
   display: none !important;
 }
+
+} /* end of @container not style(--feed-blocker: off) */
